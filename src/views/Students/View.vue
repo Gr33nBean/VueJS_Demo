@@ -64,12 +64,23 @@
 
               <button
                 type="submit"
-                :class="'btn btn-primary flex-fill mt-3 fs-5 fw-bolder customInput buttonBgColor'"
+                :class="'btn btn-primary w-100 mb-3 fw-bolder customInput buttonBgColor'"
                 :style="{ border: 'none' }"
                 @mouseover="$event.target.style.opacity = 0.5"
                 @mouseout="$event.target.style.opacity = 1"
               >
                 {{ selectedId === -1 ? "Thêm" : "Chỉnh sửa" }}
+              </button>
+
+              <button
+                v-if="selectedId !== -1"
+                @click="selectedId = -1"
+                :class="'btn btn-primary w-100 mb-3 fw-bolder customInput buttonBgColorSecondary'"
+                :style="{ border: 'none' }"
+                @mouseover="$event.target.style.opacity = 0.5"
+                @mouseout="$event.target.style.opacity = 1"
+              >
+                Hủy chỉnh sửa
               </button>
             </form>
           </div>
@@ -279,6 +290,9 @@ export default {
       this.sortOrders[key] = this.sortOrders[key] * -1;
     },
     deleteTask(taskId) {
+      if (!confirm("Bạn có muốn xóa task này không?")) {
+        return;
+      }
       const index = this.listTasks.findIndex((task) => task.id === taskId);
       if (index !== -1) {
         this.listTasks.splice(index, 1);
@@ -366,6 +380,10 @@ export default {
 
 .buttonBgColor {
   background-color: rgba(2, 119, 107, 0.9) !important;
+}
+
+.buttonBgColorSecondary {
+  background-color: #f25900 !important;
 }
 
 .contentBgColor {
