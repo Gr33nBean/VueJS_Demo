@@ -247,6 +247,8 @@ export default {
           this.newTask.done = selectedTask.done;
           this.newTask.time = selectedTask.time;
         }
+      } else {
+        this.resetNewTask();
       }
     },
   },
