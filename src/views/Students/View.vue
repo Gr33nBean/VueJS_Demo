@@ -296,18 +296,27 @@ export default {
         const index = this.listTasks.findIndex(
           (task) => task.id === this.selectedId
         );
-        this.listTasks[index].title = this.newTask.title;
-        this.listTasks[index].des = this.newTask.des;
-        this.listTasks[index].done = this.newTask.done;
-        this.listTasks[index].time = this.newTask.time;
-        this.resetNewTask();
-        this.selectedId = -1;
+        if (index !== -1) {
+          this.listTasks[index].title = this.newTask.title;
+          this.listTasks[index].des = this.newTask.des;
+          this.listTasks[index].done = this.newTask.done;
+          this.listTasks[index].time = this.newTask.time;
+          this.resetNewTask();
+          this.selectedId = -1;
+        }
         return;
       }
-      this.listTasks.push({
-        id:
+
+      let id = 1;
+
+      if (this.listTasks.length > 0) {
+        id =
           this.listTasks.sort((a, b) => a.id - b.id)[this.listTasks.length - 1]
-            .id + 1,
+            .id + 1;
+      }
+
+      this.listTasks.push({
+        id: id,
         title: this.newTask.title,
         des: this.newTask.des,
         done: false,
